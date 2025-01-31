@@ -1,0 +1,136 @@
+#emoji-picker {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    max-width: 300px;
+    max-height: 200px;
+    overflow-y: auto;
+    grid-template-columns: repeat(8, 1fr);
+    display: grid;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+/* #messages {
+    height: 320px; /* Example height */
+    /* overflow-y: auto;
+} */ 
+
+
+
+
+#emoji-picker { display: none; }
+.hidden { display: none; }
+.gif { cursor: pointer; }
+#gif-search-container { margin-top: 20px; }
+
+/* Style for displaying the GIFs properly */
+.gif {
+    max-width: 200px;
+    cursor: pointer;
+}
+#gif-results{
+    flex-direction:row;
+
+
+
+}
+
+
+#messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#messages div {
+    word-wrap: break-word;
+}
+
+img {
+    max-width: 20px;
+    max-height: 50px;
+    margin-top: 5px;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.mr-auto {
+    margin-right: auto;
+}
+
+.bg-blue-500 {
+    background-color: #3b82f6;
+}
+
+.bg-red-500 {
+    background-color: #ef4444;
+}
+
+.p-2 {
+    padding: 10px;
+}
+
+.rounded-lg {
+    border-radius: 8px;
+}
+
+.max-w-xs {
+    max-width: 200px;
+}
+
+.mb-2 {
+    margin-bottom: 10px;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-blue-500 {
+    color: #3b82f6;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+
+
+#block-unblock-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#block-btn, #unblock-btn {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+#unblock-btn {
+    display: none; /* Initially hidden */
+}
+
+#block-btn {
+    display: inline-block;
+}
