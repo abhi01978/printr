@@ -1,58 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time Chat</title>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/script.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/data"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/react"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/data"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/react"></script>
-<style></style>
-</head>
-<body class="bg-gray-100">
-    <div class="container mx-auto p-4">
-        <h1 class="text-center text-2xl font-bold">Web chat</h1>
-        <div class="chat-box bg-white p-4 rounded-lg shadow-lg  " style="height: 100%;">
-            <div id="online-users" class="mb-4">
-                <h2 class="text-lg font-semibold">Online Users:</h2>
-                <ul id="user-list" class="list-disc pl-5"></ul>
-            </div>
-            <div id="messages" class="h-80 overflow-y-auto bg-gray-50 p-3 rounded-lg mb-4" style="background-image: url(https://e0.pxfuel.com/wallpapers/281/100/desktop-wallpaper-about-phone-best-whatsapp-chat-background.jpg);"></div>
-            <div class="typing-indicator text-sm text-gray-500 mb-2"></div>
-            <br><br><br><br><br>
-            
-            <div class="flex items-center gap-2">
-                <input id="file-input" type="file" class="hidden" />
-                <button id="file-btn" class="bg-gray-300 p-2 rounded-lg">📎</button>
-                <button id="emoji-btn" class="bg-gray-300 p-2 rounded-lg">😊</button>
-                <input type="file" id="file-input" style="display:none;" accept="image/*, .gif" style="width: 50px;height: 50px;overflow: hidden;">
-                <input id="message-input" class="flex-1 border border-gray-300 p-2 rounded-lg w-40" type="text" placeholder="Type a message..." />
-                <button id="send-btn" class="bg-blue-500 text-white p-2 rounded-lg">Send</button>
-        </div>
-        
-        <div id="emoji-picker" class="hidden absolute z-50 bg-white shadow-lg rounded-lg"></div>
- <!-- GIF Search -->
- <!-- <button id="gif-search-btn" class="p-2 rounded-lg">Search GIFs</button>
- <div id="gif-search-container" class="hidden">
-     <input type="text" id="gif-search-input" placeholder="Search for GIFs...">
-     <div id="gif-results" class="mb-4" style="display: flex;height: 30px;width: 30px;width: 100%; height: 100%;overflow:scroll;"></div>
- </div>
-    </div>
-</body>
-</html> --> 
-
-
-
-
-
-
-
-
-
 
 
 <!DOCTYPE html>
@@ -67,50 +12,48 @@
     <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/react"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Responsive adjustments */
         body {
             font-family: Arial, sans-serif;
         }
         
         .container {
-            max-width: 100%; /* Full width on smaller screens */
+            max-width: 100%;
             padding: 10px;
         }
 
         .chat-box {
             display: flex;
             flex-direction: column;
-            height: 80vh; /* Height adjusts to viewport */
+            height: 80vh;
             overflow: hidden;
         }
 
         #messages {
-            flex: 1; /* Take up available space */
+            flex: 1;
             overflow-y: auto;
-            background-size: cover; /* Ensure the background scales properly */
+            background-size: cover;
             border: 1px solid #ddd;
+            padding: 10px;
         }
 
         .flex {
-            flex-wrap: wrap; /* Adjust input and buttons for smaller screens */
+            flex-wrap: wrap;
         }
 
         #message-input {
-            flex-grow: 1; /* Expand to fill available space */
-            width: calc(100% - 90px); /* Reduced width for buttons */
+            flex-grow: 1;
+            width: calc(100% - 120px);
         }
 
-        #file-btn,
-        #emoji-btn,
-        #send-btn,
-        #gif-search-btn {
-            width: 45px;
+        #file-btn, #emoji-btn, #send-btn, #gif-search-btn {
+            width: 50px;
             height: 45px;
-            font-size: 1.5rem; /* Larger buttons for touch-friendly UI */
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
         }
+
         #emoji-picker {
             position: fixed;
             bottom: 0;
@@ -124,24 +67,8 @@
             border-top: 1px solid #ddd;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
         }
-        #gif-results {
-            display: grid;
-            gap: 5px;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            max-height: 200px; /* Fixed height with scrolling */
-            overflow-y: auto;
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 5px;
-            border-radius: 5px;
-        }
 
-        /* Mobile-specific styles */
         @media (max-width: 768px) {
-            .container {
-                padding: 5px;
-            }
-
             .chat-box {
                 height: 90vh;
             }
@@ -150,68 +77,22 @@
                 height: 60%;
             }
 
-            .flex {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-
             #message-input {
-                width: 30px /* Adjust input width further for mobile */
+                width: calc(100% - 100px);
             }
-
-            #gif-results {
-                max-height: 30vh; /* Reduced height for mobile */
-                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            }
-            #emoji-picker {
-                max-height: 50%; /* Larger emoji picker for mobile */
-            }
-         
-        #send-btn
-        {
-            width: 60px;
-            height: 45px;
-            font-size: 1.5rem; /* Larger buttons for touch-friendly UI */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-       
-        #gif-search-btn {
-            width: 100%;
-            height: 45px;
-            font-size: 1.5rem; /* Larger buttons for touch-friendly UI */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        img {
-            max-width: 330px;
-            max-height: 300px;
-            margin-top: 5px;
-        }
-
         }
     </style>
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto">
         <h1 class="text-center text-2xl font-bold mb-4">@</h1>
+        <a href="/" class="bg-red-500 text-white p-2 rounded">Back</a>
         <div class="chat-box bg-white p-4 rounded-lg shadow-lg">
-            <!-- Online Users -->
-
             <div id="online-users" class="mb-4">
                 <h2 class="text-lg font-semibold">Online Users:</h2>
                 <ul id="user-list" class="list-disc pl-5"></ul>
             </div>
-            
-            <!-- Messages -->
-            <div id="messages" class="rounded-lg p-4 bg-gray-100 mb-4" style="background-image: url(https://e0.pxfuel.com/wallpapers/281/100/desktop-wallpaper-about-phone-best-whatsapp-chat-background.jpg);"></div>
-            
-            <!-- Typing Indicator -->
-            <div class="typing-indicator text-sm text-gray-500 mb-2"></div>
-            
-            <!-- Input Controls -->
+            <div id="messages" class="rounded-lg p-4 bg-gray-100 mb-4"></div>
             <div class="flex items-center gap-2">
                 <input id="file-input" type="file" class="hidden" />
                 <button id="file-btn" class="bg-gray-300 rounded-lg">📎</button>
@@ -219,11 +100,7 @@
                 <input id="message-input" class="border rounded-lg p-2 flex-grow" type="text" placeholder="Type a message..." />
                 <button id="send-btn" class="bg-blue-500 text-white rounded-lg">Send</button>
             </div>
-            
-            <!-- Emoji Picker -->
             <div id="emoji-picker" class="hidden absolute z-50 bg-white shadow-lg rounded-lg"></div>
-            
-            <!-- GIF Search -->
             <div class="mt-4">
                 <button id="gif-search-btn" class="p-2 bg-gray-300 rounded-lg">Search GIFs</button>
                 <div id="gif-search-container" class="hidden mt-2">
@@ -233,6 +110,5 @@
             </div>
         </div>
     </div>
-   
 </body>
 </html>
