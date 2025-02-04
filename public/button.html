@@ -1,3 +1,181 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/data"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emoji-mart/react"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Responsive adjustments */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            max-width: 100%; /* Full width on smaller screens */
+            padding: 10px;
+        }
+
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            height: 80vh; /* Height adjusts to viewport */
+            overflow: hidden;
+        }
+
+        #messages {
+            flex: 1; /* Take up available space */
+            overflow-y: auto;
+            background-size: cover; /* Ensure the background scales properly */
+            border: 1px solid #ddd;
+        }
+
+        .flex {
+            flex-wrap: wrap; /* Adjust input and buttons for smaller screens */
+        }
+
+        #message-input {
+            flex-grow: 1; /* Expand to fill available space */
+            width: calc(100% - 90px); /* Reduced width for buttons */
+        }
+
+        #file-btn,
+        #emoji-btn,
+        #send-btn,
+        #gif-search-btn {
+            width: 45px;
+            height: 45px;
+            font-size: 1.5rem; /* Larger buttons for touch-friendly UI */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #emoji-picker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-height: 40%;
+            overflow-y: auto;
+            background: white;
+            z-index: 50;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+        #gif-results {
+            display: grid;
+            gap: 5px;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            max-height: 200px; /* Fixed height with scrolling */
+            overflow-y: auto;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 5px;
+            }
+
+            .chat-box {
+                height: 90vh;
+            }
+
+            #messages {
+                height: 60%;
+            }
+
+            .flex {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            #message-input {
+                width: 30px /* Adjust input width further for mobile */
+            }
+
+            #gif-results {
+                max-height: 30vh; /* Reduced height for mobile */
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            }
+            #emoji-picker {
+                max-height: 50%; /* Larger emoji picker for mobile */
+            }
+         
+        #send-btn
+        {
+            width: 60px;
+            height: 45px;
+            font-size: 1.5rem; /* Larger buttons for touch-friendly UI */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+       
+        #gif-search-btn {
+            width: 100%;
+            height: 45px;
+            font-size: 1.5rem; /* Larger buttons for touch-friendly UI */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        img {
+            max-width: 330px;
+            max-height: 300px;
+            margin-top: 5px;
+        }
+
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto">
+        <h1 class="text-center text-2xl font-bold mb-4">@</h1>
+        <div class="chat-box bg-white p-4 rounded-lg shadow-lg">
+
+            <div id="online-users" class="mb-4">
+                <h2 class="text-lg font-semibold">Online Users:</h2>
+                <ul id="user-list" class="list-disc pl-5"></ul>
+            </div>
+            
+            <div id="messages" class="rounded-lg p-4 bg-gray-100 mb-4" style="background-image: url(https://e0.pxfuel.com/wallpapers/281/100/desktop-wallpaper-about-phone-best-whatsapp-chat-background.jpg);"></div>
+            
+            <div class="typing-indicator text-sm text-gray-500 mb-2"></div>
+            
+            <div class="flex items-center gap-2">
+                <input id="file-input" type="file" class="hidden" />
+                <button id="file-btn" class="bg-gray-300 rounded-lg">📎</button>
+                <button id="emoji-btn" class="bg-gray-300 rounded-lg">😊</button>
+                <input id="message-input" class="border rounded-lg p-2 flex-grow" type="text" placeholder="Type a message..." />
+                <button id="send-btn" class="bg-blue-500 text-white rounded-lg">Send</button>
+            </div>
+            
+            <div id="emoji-picker" class="hidden absolute z-50 bg-white shadow-lg rounded-lg"></div>
+            
+            <div class="mt-4">
+                <button id="gif-search-btn" class="p-2 bg-gray-300 rounded-lg">Search GIFs</button>
+                <div id="gif-search-container" class="hidden mt-2">
+                    <input type="text" id="gif-search-input" class="border rounded-lg p-2 w-full" placeholder="Search for GIFs..." />
+                    <div id="gif-results" class="grid gap-2 mt-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</body>
+</html> -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,147 +313,12 @@
         }
 
         }
-        #emoji-picker {
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    max-width: 300px;
-    max-height: 200px;
-    overflow-y: auto;
-    grid-template-columns: repeat(8, 1fr);
-    display: grid;
-    gap: 0.5rem;
-    padding: 1rem;
-}
-
-.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-:not(.hidden) {
-    opacity: 1;
-    visibility: visible;
-}
-
-
-img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 8px;
-}
-/* #messages {
-    height: 320px; /* Example height */
-    /* overflow-y: auto;
-} */ 
-
-
-
-
-#emoji-picker { display: none; }
-.hidden { display: none; }
-.gif { cursor: pointer; }
-#gif-search-container { margin-top: 20px; }
-
-/* Style for displaying the GIFs properly */
-.gif {
-    max-width: 200px;
-    cursor: pointer;
-}
-#gif-results{
-    flex-direction:row;
-
-
-
-}
-
-
-#messages {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#messages div {
-    word-wrap: break-word;
-}
-
-img {
-    max-width: 20px;
-    max-height: 50px;
-    margin-top: 5px;
-}
-
-.ml-auto {
-    margin-left: auto;
-}
-
-.mr-auto {
-    margin-right: auto;
-}
-
-.bg-blue-500 {
-    background-color: #3b82f6;
-}
-
-.bg-red-500 {
-    background-color: #ef4444;
-}
-
-.p-2 {
-    padding: 10px;
-}
-
-.rounded-lg {
-    border-radius: 8px;
-}
-
-.max-w-xs {
-    max-width: 200px;
-}
-
-.mb-2 {
-    margin-bottom: 10px;
-}
-
-.text-white {
-    color: white;
-}
-
-.text-blue-500 {
-    color: #3b82f6;
-}
-
-.underline {
-    text-decoration: underline;
-}
-
-
-
-#block-unblock-container {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#block-btn, #unblock-btn {
-    margin-right: 5px;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
-
-#unblock-btn {
-    display: none; /* Initially hidden */
-}
-
-#block-btn {
-    display: inline-block;
-}
 
     </style>
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto">
+        <a href="/" class="bg-red-500 text-white p-2 rounded">Back</a>
         <h1 class="text-center text-2xl font-bold mb-4">@</h1>
         <div class="chat-box bg-white p-4 rounded-lg shadow-lg">
             <!-- Online Users -->
@@ -286,10 +329,13 @@ img {
             </div>
             
             <!-- Messages -->
-            <div id="messages" class="rounded-lg p-4 bg-gray-100 mb-4" style="background-image: url(https://e0.pxfuel.com/wallpapers/281/100/desktop-wallpaper-about-phone-best-whatsapp-chat-background.jpg);"></div>
+            <div id="messages" class="rounded-lg p-4 bg-gray-100 mb-4" style="background-image: url(https://e0.pxfuel.com/wallpapers/281/100/desktop-wallpaper-about-phone-best-whatsapp-chat-background.jpg);">
+               <div style="position: absolute;padding-top: 92%;margin-left: 58%;"> <div class="typing-indicator text-sm text-green-500 mb-2"></div></div>
+
+            </div>
             
             <!-- Typing Indicator -->
-            <div class="typing-indicator text-sm text-gray-500 mb-2"></div>
+            <!-- <div class="typing-indicator text-sm text-gray-500 mb-2"></div> -->
             
             <!-- Input Controls -->
             <div class="flex items-center gap-2">
